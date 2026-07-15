@@ -138,7 +138,7 @@ const pageList = (state.sig === sig && state.pages && state.pages.every(p => p.e
   // AIOU page numbering: roman for front matter (after cover 'i'), arabic restart at chapters.
   const aiou = tpl.id === "aiou";
   let firstChapterPage = null;
-  if (aiou) pageList.forEach((idxs, pi) => { if (firstChapterPage == null && idxs.some(i => blocks[i].key === "ch0-head")) firstChapterPage = pi; });
+if (aiou) pageList.forEach((idxs, pi) => { if (firstChapterPage == null && idxs.some(i => blocks[i]?.key === "ch0-head")) firstChapterPage = pi; });
   const footerFor = (pi) => {
     if (!aiou) return null;
     if (firstChapterPage == null) return toRomanLower(pi + 2);
