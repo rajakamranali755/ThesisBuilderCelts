@@ -130,10 +130,11 @@ function FlowPaginator({ blocks, tpl, paddingStyle, sig, onPages }) {
     Array.from(el.children).forEach(c => ro.observe(c));
     window.addEventListener("resize", recompute);
     return () => { ro.disconnect(); window.removeEventListener("resize", recompute); };
-  }, [sig, contentH, contentW]); // eslint-disable-line react-hooks/exhaustive-deps
+   }, [sig, contentH, contentW, blocks.length]);// eslint-disable-line react-hooks/exhaustive-deps
 
-  const pageList = (state.sig === sig && state.pages) ? state.pages : (blocks.length ? [blocks.map((_, i) => i)] : []);
-
+const pageList = (state.sig === sig && state.pages && state.pages.every(p => p.every(i => i < blocks.length)))
+    ? state.pages
+    : (blocks.length ? [blocks.map((_, i) => i)] : []);
   // AIOU page numbering: roman for front matter (after cover 'i'), arabic restart at chapters.
   const aiou = tpl.id === "aiou";
   let firstChapterPage = null;
@@ -153,11 +154,13 @@ function FlowPaginator({ blocks, tpl, paddingStyle, sig, onPages }) {
         visibility: "hidden", pointerEvents: "none",
         fontFamily: getFont(tpl), fontSize: tpl.bodyFontSize, direction: tpl.direction,
       }}>
-        {blocks.map(b => <div key={b.key} style={{ display: "flow-root" }}>{b.el}</div>)}
+              {blocks.map(b => b && <div key={b.key} style={{ display: "flow-root" }}>{b.el}</div>)}
+
       </div>
       {pageList.map((idxs, pi) => (
         <Page key={pi} tpl={tpl} paddingStyle={paddingStyle} fixed last={pi === pageList.length - 1} footer={footerFor(pi)}>
-          {idxs.map(i => <div key={blocks[i].key} style={{ display: "flow-root" }}>{blocks[i].el}</div>)}
+                    {idxs.filter(i => blocks[i]).map(i => <div key={blocks[i].key} style={{ display: "flow-root" }}>{blocks[i].el}</div>)}
+
         </Page>
       ))}
     </>
