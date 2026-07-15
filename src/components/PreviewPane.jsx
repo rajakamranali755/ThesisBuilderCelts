@@ -136,7 +136,8 @@ const pageList = (state.sig === sig && state.pages && state.pages.every(p => p.e
     ? state.pages
     : (blocks.length ? [blocks.map((_, i) => i)] : []);
   // AIOU page numbering: roman for front matter (after cover 'i'), arabic restart at chapters.
-  const aiou = tpl.id === "aiou";
+  const aiou = tpl.variantGroup === "aiou";
+
   let firstChapterPage = null;
 if (aiou) pageList.forEach((idxs, pi) => { if (firstChapterPage == null && idxs.some(i => blocks[i]?.key === "ch0-head")) firstChapterPage = pi; });
   const footerFor = (pi) => {
@@ -756,7 +757,8 @@ export default function PreviewPane({ data, templateId = "hec_standard" }) {
   const isRTL   = tpl.direction === "rtl";
   const isUrdu  = tpl.language === "urdu";
   const isUoG   = tpl.id === "uog";
-  const isAIOU  = tpl.id === "aiou";
+  const isAIOU  = tpl.variantGroup === "aiou";
+
 
   const L = {
     abstract:        isUrdu ? URDU_LABELS.abstract        : "ABSTRACT",
