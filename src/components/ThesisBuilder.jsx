@@ -56,7 +56,7 @@ export default function ThesisBuilder({ user = null, onSignOut = () => {} }) {
   const [mode,        setMode]        = useState("thesis"); // "thesis" | "article" | "scholar"
   const [step,        setStep]        = useState(0);
   const [data,        setData]        = useState(EMPTY);
-  const [templateId,  setTemplateId]  = useState("hec_standard");
+const [templateId,  setTemplateId]  = useState("aiou");
   const [sampleLoaded,setSampleLoaded]= useState(false);
   const [sampleMenu,  setSampleMenu]  = useState(false);
   const [importing,   setImporting]   = useState(false);
@@ -90,7 +90,7 @@ export default function ThesisBuilder({ user = null, onSignOut = () => {} }) {
     }
   };
 
-  const tpl = TEMPLATES[templateId] || TEMPLATES.hec_standard;
+  const tpl = TEMPLATES[templateId] || TEMPLATES.aiou;
 
   // Select a template and, if it carries programme defaults (e.g. an AIOU
   // variant), prefill any title-page fields the user hasn't filled in yet.
