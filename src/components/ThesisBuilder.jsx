@@ -448,7 +448,8 @@ const [templateId,  setTemplateId]  = useState("aiou");
                   </div>
 
                   {step === 0 && <TemplateSelector selectedId={templateId} onSelect={selectTemplate} />}
-                  {step === 1 && <CoverStep        data={data.cover}       onChange={upd("cover")} />}
+                  {step === 1 && <CoverStep        data={data.cover}       onChange={upd("cover")} templateId={templateId} />}
+
                   {step === 2 && <PreliminaryStep  data={data.preliminary} onChange={upd("preliminary")} templateId={templateId} cover={data.cover} />}
                   {step === 3 && <ChaptersStep     data={data.chapters}    onChange={upd("chapters")} />}
                   {step === 4 && <ReferencesStep   data={data.references}  onChange={upd("references")} chapters={data.chapters} />}
